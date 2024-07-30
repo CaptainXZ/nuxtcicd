@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/repo
     docker:
-      - image: cimg/node:12.16.0
+      - image: cimg/node:14.17.0 # Updated Node.js version
     steps:
       - checkout
       - run:
@@ -23,11 +23,11 @@ jobs:
           command: npm run generate
       - run:
           name: Output npm debug log
-          command: cat /home/circleci/.npm/_logs/2024-07-30T04_30_07_469Z-debug.log
+          command: cat /home/circleci/.npm/_logs/2024-07-30T04_37_25_198Z-debug.log
       - run:
           name: Install and configure dependencies
           command: |
-            npm install
+            npm install gh-pages --save-dev
             git config user.email "sopheakbka@gmail.com"
             git config user.name "sopheakbka"
       - add_ssh_keys:
@@ -39,4 +39,4 @@ jobs:
       - run:
           name: Deploy to Remote Server
           command: |
-            ssh root@178.128.170.71 'cd /var/www/html/app && git pull && npm install && npm run generate'
+            ssh user@178.128.120.1 'cd /var/www/html/app && git pull && npm install && npm run build'
