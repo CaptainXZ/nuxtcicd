@@ -18,11 +18,12 @@ jobs:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
             - ./node_modules
-
       - run:
           name: build-project
           command: npm run generate:gh-pages
-
+      - run:
+          name: Output npm debug log
+          command: cat /home/circleci/.npm/_logs/2024-07-30T04_30_07_469Z-debug.log
       - run:
           name: Install and configure dependencies
           command: |
